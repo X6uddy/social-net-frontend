@@ -1,0 +1,28 @@
+.sidebar {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    border-right: 2px;
+    border-color: rgb(255, 255, 255);
+    padding: 10px 0;
+    &_links {
+        display: flex;
+        flex-direction: column;
+        a {
+            margin-bottom: 2.5rem;
+            :hover {
+                color: #fff;
+            }
+            &.active svg {
+                color: #fff;
+            }
+        }
+    }
+
+    svg {
+        color: #b1adad;
+        animation-duration: 300;
+        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+}
