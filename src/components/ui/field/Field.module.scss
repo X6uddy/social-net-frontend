@@ -1,14 +1,24 @@
 .field {
-    @apply flex items-center mt-5;
+    @apply flex items-center mt-5 relative;
     input {
-        @apply border-none outline-none bg-transparent placeholder:text-[#666463];
+        @apply border-none outline-none bg-transparent placeholder:text-[#666463]  
+        placeholder:transition-colors placeholder:duration-300 placeholder:ease-linear;
+    }
+
+    &:focus-within {
+        .icon {
+            @apply text-white;
+        }
+        input {
+            @apply placeholder:text-white;
+        }
     }
 }
 
 .icon {
-    @apply mr-4 text-[#666463];
+    @apply mr-3 text-[#666463] transition-colors duration-300 ease-linear;
 }
 
 .error {
-    @apply text-red-700;
+    @apply text-red-600 text-xs absolute -bottom-4 left-9;
 }
