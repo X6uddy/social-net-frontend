@@ -9,5 +9,5 @@ export const metadata: Metadata = {
 }
 
 export default function RegistrationPage() {
-    return <Auth type='registration'/>
+    return <Auth type='Registration'/>
 }
