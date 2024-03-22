@@ -1,0 +1,14 @@
+.field {
+    @apply flex items-center mt-5;
+    input {
+        @apply border-none outline-none bg-transparent placeholder:text-[#666463];
+    }
+}
+
+.icon {
+    @apply mr-4 text-[#666463];
+}
+
+.error {
+    @apply text-red-700;
+}
