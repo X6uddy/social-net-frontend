@@ -1,70 +1,77 @@
-import { IAuthFormState } from "@/components/screens/auth/auth.types";
-import NextAuth from "next-auth";
-import Credentials from "next-auth/providers/credentials";
+import { AuthOptions, User } from 'next-auth';
+import Credentials from 'next-auth/providers/credentials';
 
-const AuthOptions = {
-  providers: [
-    Credentials({
-        name: 'Credentials',
-        credentials: {
-          email: {type: 'text'},
-          password: {type: 'password'},
-        },
-        async authorize(credentials) {
-            const { email, password } = credentials as IAuthFormState;
-    
-            const { user } = await fetch(
-                `${process.env.NEXT_PUBLIC_API_URL}/auth/${account.provider}/callback?access_token=${account?.accessToken}`
-            );
-            const data = await response.json();
-    
-            if (!user) {
-              const { userCreate } = await grafbase.request(CreateUserByemail, {
-                email,
-                passwordHash: await hash(password, 12),
-              })
-    
-              return {
-                id: userCreate.id,
-                email,
-              }
-            }
-    
-            const isValid = await compare(password, user.passwordHash)
-    
-            if (!isValid) {
-              throw new Error('Wrong credentials. Try again.')
-            }
-    
-            return user
-        },
-      }),
-  ],
-  database: process.env.NEXT_PUBLIC_DATABASE_URL,
-  session: {
-    jwt: true,
-  },
-  callbacks: {
-    session: async (session, user) => {
-      session.jwt = user.jwt;
-      session.id = user.id;
-      return Promise.resolve(session);
-    },
-    jwt: async (token, user, account) => {
-      const isSignIn = user ? true : false;
-      if (isSignIn) {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/auth/${account.provider}/callback?access_token=${account?.accessToken}`
-        );
-        const data = await response.json();
-        token.jwt = data.jwt;
-        token.id = data.user.id;
-      }
-      return Promise.resolve(token);
-    },
-  },
+import { $fetch } from '@/$api/api.fetch';
+import { IUser } from '@/types/user.types';
+
+export const nextAuthOptions: AuthOptions = {
+	providers: [
+		Credentials({
+			credentials: {
+				username: {
+					type: 'text',
+				},
+				email: {
+					type: 'text',
+				},
+				password: { type: 'password' },
+			},
+			async authorize(credentials) {
+				if (!credentials?.email || !credentials.password) return null
+
+				if (credentials.username) {
+					try {
+						const data = await $fetch.post<{
+							user: IUser
+							jwt: string
+						}>(`/auth/local/register?populate[avatar]=*`, credentials)
+
+						return {
+							id: data.user.id.toString(),
+							email: data.user.email,
+							avatar: data.user.avatar?.url,
+							username: data.user.username,
+							jwt: data.jwt,
+						} as User
+					} catch (e) {
+						return Promise.reject({
+							message: 'Register error, not valid data!',
+						})
+					}
+				}
+
+				try {
+					const data = await $fetch.post<{
+						user: IUser
+						jwt: string
+					}>(`/auth/local?populate[avatar]=*`, {
+						identifier: credentials.email,
+						password: credentials.password,
+					})
+
+					return {
+						id: data.user.id.toString(),
+						email: data.user.email,
+						avatar: data.user.avatar?.url,
+						username: data.user.username,
+						jwt: data.jwt,
+					} as User
+				} catch (e) {
+					return Promise.reject({
+						message: 'Login error, not valid data!',
+					})
+				}
+			},
+		}),
+	],
+	callbacks: {
+		jwt({ token, user, account }) {
+			return { ...token, ...user }
+		},
+		session({ session, token, user }) {
+			// session.user = token as IUser
+			// return session
+      return session
+		},
+	},
 };
-
-const Auth = (req, res) => NextAuth(req, res, AuthOptions);
-
-export default Auth;
