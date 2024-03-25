@@ -1,11 +1,12 @@
 'use client'
-import { AtSign, KeyRound } from "lucide-react"
+import { AtSign, KeyRound } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button/Button"
 import Field from "@/components/ui/field/Field";
-import { SubmitHandler, useForm } from "react-hook-form";
 import { IAuthFormState } from "./auth.types";
-import { signIn } from "next-auth/react";
+import { getRandomFullName } from "@/utils/get-random-full-name.util";
 
 interface IAuth {
     type?: 'Login' | 'Registration'
@@ -22,6 +23,12 @@ export function Auth({type} : IAuth) {
                 redirect: false,
                 ...data
             });
+        } else if(type === 'Registration') {
+            await signIn('credentials', {
+                redirect: false,
+                username: getRandomFullName(),
+                ...data
+            })
         }
     }
 
@@ -40,7 +47,11 @@ export function Auth({type} : IAuth) {
                 />
                 <Field 
                     {...register('password', {
-                        required: true
+                        required: true,
+                        minLength: {
+                            value: 6,
+                            message: 'Min lenght 6 symbols'
+                        }
                     })}
                     placeholder="Enter password" 
                     type="password" 
