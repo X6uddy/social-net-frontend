@@ -3,6 +3,7 @@ import Credentials from 'next-auth/providers/credentials';
 
 import { $fetch } from '@/$api/api.fetch';
 import { IUser } from '@/types/user.types';
+import toast from 'react-hot-toast/headless';
 
 export const nextAuthOptions: AuthOptions = {
 	providers: [
@@ -26,6 +27,7 @@ export const nextAuthOptions: AuthOptions = {
 							jwt: string
 						}>(`/auth/local/register?populate[avatar]=*`, credentials)
 
+						console.log(data)
 						return {
 							id: data.user.id.toString(),
 							email: data.user.email,
@@ -48,7 +50,7 @@ export const nextAuthOptions: AuthOptions = {
 						identifier: credentials.email,
 						password: credentials.password,
 					})
-
+					console.log(`${data.user.email} - ${data.user.username} is logged in`);
 					return {
 						id: data.user.id.toString(),
 						email: data.user.email,
