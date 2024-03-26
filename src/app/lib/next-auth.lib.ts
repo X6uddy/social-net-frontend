@@ -27,7 +27,7 @@ export const nextAuthOptions: AuthOptions = {
 							jwt: string
 						}>(`/auth/local/register?populate[avatar]=*`, credentials)
 
-						console.log(data)
+						console.log(data);
 						return {
 							id: data.user.id.toString(),
 							email: data.user.email,
