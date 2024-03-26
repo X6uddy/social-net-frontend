@@ -1,36 +1,46 @@
 'use client'
 import { AtSign, KeyRound } from "lucide-react";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import { Button } from "@/components/ui/button/Button"
 import Field from "@/components/ui/field/Field";
 import { IAuthFormState } from "./auth.types";
 import { getRandomFullName } from "@/utils/get-random-full-name.util";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 interface IAuth {
     type?: 'Login' | 'Registration'
 }
 
 export function Auth({type} : IAuth) {
+    const [isLoading, setIsLoading] = useState(false);
     const {register, handleSubmit} = useForm<IAuthFormState>({
         mode: 'onChange'
     })
+    const {push} = useRouter();
 
     const onSubmit: SubmitHandler<IAuthFormState> = async (data) => {
-        if(type === 'Login') {
-            await signIn('credentials', {
+        setIsLoading(true)
+        const response = await signIn('credentials', type === 'Login' ? {
                 redirect: false,
                 ...data
-            });
-        } else if(type === 'Registration') {
-            await signIn('credentials', {
+            } : 
+            {
                 redirect: false,
                 username: getRandomFullName(),
                 ...data
-            })
-        }
-    }
+            }
+        )
+        if(response?.error) {
+            setIsLoading(false);
+            toast.error(`${response?.error}`)
+        } else toast.success(`${type}: Successfully`);
+        setIsLoading(false);
+        push('/');
+    };
 
     return (
         <div className='flex h-full'>
@@ -62,7 +72,7 @@ export function Auth({type} : IAuth) {
                 
                 <div className="text-center">
                     <Button 
-                        isLoading={false} 
+                        isLoading={isLoading} 
                         type="submit"
                     >
                     {type}
