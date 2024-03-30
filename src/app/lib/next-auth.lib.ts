@@ -3,7 +3,6 @@ import Credentials from 'next-auth/providers/credentials';
 
 import { $fetch } from '@/$api/api.fetch';
 import { IUser } from '@/types/user.types';
-import toast from 'react-hot-toast/headless';
 
 export const nextAuthOptions: AuthOptions = {
 	providers: [
@@ -31,8 +30,8 @@ export const nextAuthOptions: AuthOptions = {
 						return {
 							id: data.user.id.toString(),
 							email: data.user.email,
-							avatar: data.user.avatar?.url,
-							username: data.user.username,
+							image: data.user.avatar?.url,
+							name: data.user.username,
 							jwt: data.jwt,
 						} as User
 					} catch (e) {
@@ -54,8 +53,8 @@ export const nextAuthOptions: AuthOptions = {
 					return {
 						id: data.user.id.toString(),
 						email: data.user.email,
-						avatar: data.user.avatar?.url,
-						username: data.user.username,
+						image: data.user.avatar?.url,
+						name: data.user.username,
 						jwt: data.jwt,
 					} as User
 				} catch (e) {
@@ -68,12 +67,17 @@ export const nextAuthOptions: AuthOptions = {
 	],
 	callbacks: {
 		jwt({ token, user, account }) {
+			console.log('jwt tok', token);
+			console.log('jwt user', user);
+			console.log('jwt account', account);
 			return { ...token, ...user }
 		},
 		session({ session, token, user }) {
-			// session.user = token as IUser
-			// return session
-      return session
+			// session.user = 
+			console.log('session session', session)
+			console.log('session token', token)
+			console.log('session user', user)
+			return session
 		},
 	},
 };
