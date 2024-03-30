@@ -36,10 +36,10 @@ export function Auth({type} : IAuth) {
         )
         if(response?.error) {
             setIsLoading(false);
-            toast.error(`${response?.error}`)
-        } else toast.success(`${type}: Successfully`);
+            toast.error(`${response?.error}`); //notification of unsuccessful registration or login
+        } else toast.success(`${type}: Successfully`); // notification of successful registration or login
         setIsLoading(false);
-        push('/');
+        // push('/'); // it's redirect to main page
     };
 
     return (
