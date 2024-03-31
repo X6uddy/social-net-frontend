@@ -16,7 +16,7 @@ interface IAuth {
 }
 
 export function Auth({type} : IAuth) {
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); // data loading status
     const {register, handleSubmit} = useForm<IAuthFormState>({
         mode: 'onChange'
     })
@@ -36,7 +36,7 @@ export function Auth({type} : IAuth) {
         )
         if(response?.error) {
             setIsLoading(false);
-            toast.error(`${response?.error}`); //notification of unsuccessful registration or login
+            toast.error(`${response?.error}`); //notification of unsuccessful registration or login 
         } else toast.success(`${type}: Successfully`); // notification of successful registration or login
         setIsLoading(false);
         // push('/'); // it's redirect to main page
