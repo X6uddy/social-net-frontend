@@ -1,15 +1,15 @@
 'use client'
 import { AtSign, KeyRound } from "lucide-react";
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button/Button"
 import Field from "@/components/ui/field/Field";
 import { IAuthFormState } from "./auth.types";
 import { getRandomFullName } from "@/utils/get-random-full-name.util";
-import toast from "react-hot-toast";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
 
 interface IAuth {
     type?: 'Login' | 'Registration'
@@ -39,7 +39,7 @@ export function Auth({type} : IAuth) {
             toast.error(`${response?.error}`); //notification of unsuccessful registration or login 
         } else toast.success(`${type}: Successfully`); // notification of successful registration or login
         setIsLoading(false);
-        // push('/'); // it's redirect to main page
+        push('/'); // it's redirect to main page
     };
 
     return (
