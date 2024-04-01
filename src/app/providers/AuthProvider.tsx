@@ -17,6 +17,7 @@ export default function AuthProvider({ children }: PropsWithChildren<unknown>) {
 
     useEffect(() => {
         if(pathname != '/login' && pathname != '/registration') {
+            console.log(isLoggedIn, user)
             if(!isLoggedIn) router.push('/login')
         } 
     }, [pathname, isLoggedIn])
