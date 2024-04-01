@@ -1,5 +1,9 @@
+'use client'
+import { useAuth } from "@/hooks/useAuth";
+
 export function CurrentUser() {
+    const {user, isLoggedIn} = useAuth();
     return (
-        <div>Волков Александр</div>
+        <div>{user?.username}</div>
     )
 }
