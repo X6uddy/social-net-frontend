@@ -6,7 +6,7 @@ export const MENU = [
         icon: Users2
     },
     {
-        url: '/call',
+        url: '/calls',
         icon: Phone
     },
     {
