@@ -1,4 +1,4 @@
-import { ChatsList } from "@/components/screens/chats/ChatList";
+import { ChatsList } from "@/components/screens/chats/chatList/ChatList";
 import { CurrentUser } from "@/components/screens/chats/CurrentUser";
 import { Chat } from "@/components/screens/chats/Chat";
 
