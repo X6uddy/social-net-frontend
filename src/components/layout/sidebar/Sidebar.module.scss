@@ -1,28 +1,18 @@
 .sidebar {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    justify-content: space-between;
-    border-right: 2px;
-    border-color: rgb(255, 255, 255);
-    padding: 10px 0;
+    @apply flex items-center flex-col justify-between p-3 border-r-[1px] border-r-stone-600 border-opacity-50;
     &_links {
-        display: flex;
-        flex-direction: column;
+        @apply flex flex-col;
         a {
-            margin-bottom: 2.5rem;
+            @apply mb-10;
             :hover {
-                color: #fff;
+                @apply text-white;
             }
             &.active svg {
-                color: #fff;
+                @apply text-white;
             }
         }
     }
-
     svg {
-        color: #b1adad;
-        animation-duration: 300;
-        transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        @apply text-[#b1adad] duration-300 transition-transform;
     }
 }
