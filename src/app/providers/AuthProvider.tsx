@@ -21,5 +21,5 @@ export default function AuthProvider({ children }: PropsWithChildren<unknown>) {
             if(!isLoggedIn) router.push('/login')
         } 
     }, [pathname, isLoggedIn])
-    return <div>{children}</div>
+    return <div className='h-screen'>{children}</div>
 }
