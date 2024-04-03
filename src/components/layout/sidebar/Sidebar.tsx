@@ -9,13 +9,13 @@ import { usePathname } from "next/navigation";
 import { MENU } from "./sidebar.data";
 
 import styles from './Sidebar.module.scss';
-
-const isLoggedIn = true;
+import { useAuth } from '@/hooks/useAuth';
 
 export function Sidebar() {
     const pathname = usePathname();
-    return !isLoggedIn ? null : 
-    (
+    const isLoggedIn = useAuth();
+    // if(isLoggedIn) return null;
+    return (
         <aside className={styles.sidebar}> 
             <Image src='/logo.svg' priority alt='logo X' width={45} height={45}/>
 
