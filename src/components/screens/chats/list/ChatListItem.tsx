@@ -2,12 +2,13 @@ import { User } from "lucide-react";
 import Image from "next/image";
 
 import no_profile from '/public/profile.png';
+import { IChat } from "@/types/chat.types";
 
 interface IChatListItem {
     
 }
 
-export function ChatListItem() {
+export function ChatListItem({}: IChat) {
     return (
         <div className="p-5 border-b border-stone-600 border-opacity-50 text-sm flex items-center">
             <div>
