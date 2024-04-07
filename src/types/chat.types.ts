@@ -1,8 +1,11 @@
 export interface IMessage {
+    id: string;
     text: string;
     createdAt: string;
+
 }
 
 export interface IChat {
-    messages: IMessage[]
+    id: string;
+    messages: IMessage[];
 }
