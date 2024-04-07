@@ -4,14 +4,7 @@
 
 html,
 body {
-  color: #eeeded;
-  background: linear-gradient(to top right, #140206, #38031c), #3a1f25;
-  text-decoration:none;
-}
-
-html,
-body {
-  height: 100%;
+  @apply text-[#eeeded] bg-[#3a1f25] bg-gradient-to-tr from-[#140206] to-[#38031c] no-underline h-[100%];
 }
 
 h1 {
