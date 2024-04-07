@@ -1,5 +1,3 @@
 .layout {
-    display: grid;
-    grid-template-columns: 1fr 20fr;
-    height: 100%;
+    @apply grid grid-cols-[1fr_20fr] h-[100%];
 }
