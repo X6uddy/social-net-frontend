@@ -14,6 +14,7 @@ export function CurrentUser() {
                 height={50}
                 width={60} 
                 className="mr-3 rounded-full border border-black border-opacity-30"
+                priority
             />
             <div className="flex flex-col">
                 <span>{user?.username}</span>
