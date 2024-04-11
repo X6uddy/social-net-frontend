@@ -1,25 +1,25 @@
 'use client'
-import { usePathname } from 'next/navigation';
+import { useAuth } from '@/hooks/useAuth'
+import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, type PropsWithChildren } from 'react'
 
-import { useAuth } from '@/hooks/useAuth';
-import { useRouter } from "next/navigation";
-
 export default function AuthProvider({ children }: PropsWithChildren<unknown>) {
-    const {user, isLoggedIn} = useAuth();
-    const pathname = usePathname();
-    const router = useRouter();
-    useEffect(() => {
-        if(isLoggedIn) {
-            window.localStorage.setItem('token', user?.jwt || '') // потом переделаю под куки. библиотека js - cookie
-        }
-    }, [user, isLoggedIn])
+	const { user, isLoggedIn } = useAuth()
+	const pathname = usePathname()
+	const router = useRouter()
 
-    useEffect(() => {
-        if(pathname != '/login' && pathname != '/registration') {
-            console.log(isLoggedIn, user)
-            if(!isLoggedIn) router.push('/login')
-        } 
-    }, [pathname, isLoggedIn])
-    return <div className='h-screen'>{children}</div>
+	useEffect(() => {
+		if (isLoggedIn) {
+			window.localStorage.setItem('token', user?.jwt || '')
+		}
+	}, [user, isLoggedIn])
+
+	useEffect(() => {
+		if (pathname !== '/login' && pathname !== '/register') {
+			const isLoggedIn = window.localStorage.getItem('token')
+			if (!isLoggedIn) return router.push('/login')
+		}
+	}, [pathname, isLoggedIn])
+
+	return <>{children}</>
 }
