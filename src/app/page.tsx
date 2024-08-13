@@ -17,8 +17,6 @@ export default function ChatsPage() {
 
       <div>
         <Chat />
-        <Chat />
-        <Chat />
       </div>
     </div>
   );
