@@ -11,7 +11,7 @@ import { Loader } from "@/components/ui/loader/Loader";
 export function ChatsList() {
     const {data, isLoading} = useQuery({
         queryKey: ['chats'],
-        queryFn: () => $fetch.get<IChat[]>('/chats?populate=*')
+        queryFn: () => $fetch.get<IChat[]>('/api/login')
     })
     return (
         <div>
