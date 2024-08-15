@@ -16,14 +16,16 @@ export const nextAuthOptions: AuthOptions = {
 				password: { type: 'password' },
 			},
 			async authorize(credentials) {
-				if (!credentials?.email || !credentials.password) return null
+				if (!credentials?.email || !credentials.password) return null;
 
+				const { email, password } = credentials as { email: string; password: string };
+				
 				if (credentials.username) {
 					try {
 						const data = await $fetch.post<{
 							user: IUser
 							jwt: string
-						}>(`/auth/local/register?populate[avatar]=*`, credentials)
+						}>(`/login`, credentials)
 
 						return {
 							id: data.user.id.toString(),
@@ -43,7 +45,7 @@ export const nextAuthOptions: AuthOptions = {
 					const data = await $fetch.post<{
 						user: IUser
 						jwt: string
-					}>(`/auth/local?populate[avatar]=*`, {
+					}>(`/login`, {
 						identifier: credentials.email,
 						password: credentials.password,
 					})
@@ -72,4 +74,5 @@ export const nextAuthOptions: AuthOptions = {
 			return session
 		},
 	},
+	secret: process.env.NEXTAUTH_SECRET
 }
