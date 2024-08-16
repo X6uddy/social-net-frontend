@@ -83,5 +83,7 @@ class FetchClient {
 		}
 	}
 }
+//TODO
+//Сделать объектом параметры фетча в методах (return this.fetch<T>(path, 'PATCH', isAuth, body, headers))
 
 export const $fetch = new FetchClient()

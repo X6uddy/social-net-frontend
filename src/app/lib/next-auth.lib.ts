@@ -25,7 +25,7 @@ export const nextAuthOptions: AuthOptions = {
 						const data = await $fetch.post<{
 							user: IUser
 							jwt: string
-						}>(`/login`, credentials)
+						}>(`/login`, credentials) //TODO вынести в отдельный сервис
 
 						return {
 							id: data.user.id.toString(),
