@@ -12,14 +12,15 @@ export default function AuthProvider({ children }: PropsWithChildren<unknown>) {
 		if (isLoggedIn) {
 			window.localStorage.setItem('token', user?.jwt || '')
 		}
+		console.log('providerAAAAAAAAAAAuth:', user)
 	}, [user, isLoggedIn])
 
-	useEffect(() => {
-		if (pathname !== '/login' && pathname !== '/registration') {
-			const isLoggedIn = window.localStorage.getItem('token')
-			if (!isLoggedIn) return router.push('/login')
-		}
-	}, [pathname, isLoggedIn])
+	// useEffect(() => {
+	// 	if (pathname !== '/login' && pathname !== '/registration') {
+	// 		const isLoggedIn = window.localStorage.getItem('token')
+	// 		if (!isLoggedIn) return router.push('/login')
+	// 	}
+	// }, [pathname, isLoggedIn])
 
 	return <>{children}</>
 }
