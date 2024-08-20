@@ -8,6 +8,6 @@ export function useAuth() {
         user: data?.user,
         isLoggedIn: true,
         status
-        // isLoggedIn: status === 'authenticated'
+        // isLoggedIn: status === 'authenticated' // TODO вытаскивать из сессии статус  и обрабатывать в провайдере
     }
 }
