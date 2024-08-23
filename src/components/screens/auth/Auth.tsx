@@ -43,9 +43,10 @@ export function Auth({type} : IAuth) {
     };
 
     return (
-        <div className='flex h-full'>
+        <div className='flex h-full'> 
             <form onSubmit={handleSubmit(onSubmit)} className='m-auto block w-96 border border-[#8d3c3c57] p-8'>
                 <h1 className="text-center mb-7">{type}</h1>
+                //TODO сделать поле username для регистрации
                 <Field 
                     {...register('email', {
                         required: true
