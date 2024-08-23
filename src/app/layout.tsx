@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next"; //TODO исправить импорт
 import { Inter } from "next/font/google";
 
 import LayoutClient from "@/components/layout/Layout";
