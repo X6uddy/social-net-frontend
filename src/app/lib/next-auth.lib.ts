@@ -18,20 +18,14 @@ export const nextAuthOptions: AuthOptions = {
 				},
 			},
 			async authorize(credentials) {
-				// if (credentials?.email !== 'sashavolkov_03@mail.ru' || credentials.password !== '1234qwerty') {
-				// 	return null;
-				// }
-				// return {email: 'sashavolkov_03@mail.ru', username: 'Sasha228', id: '1234'}
 				if (!credentials?.email || !credentials.password) return null;
-
-				const { email, password } = credentials as { email: string; password: string };
 				
 				if (credentials.username) {
 					try {
 						const data = await $fetch.post<{
 							user: IUser
 							jwt: string
-						}>(`/auth/local/register`, credentials) //TODO вынести в отдельный сервис
+						}>(`/auth/local/register?populate[avatar]=*`, credentials) //TODO вынести в отдельный сервис
 
 						return {
 							id: data.user.id.toString(),
@@ -51,7 +45,7 @@ export const nextAuthOptions: AuthOptions = {
 					const data = await $fetch.post<{
 						user: IUser
 						jwt: string
-					}>(`/auth/local`, {
+					}>(`/auth/local?populate[avatar]=*`, {
 						identifier: credentials.email,
 						password: credentials.password,
 					})
