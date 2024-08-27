@@ -1,5 +1,5 @@
 'use client'
-import { AtSign, KeyRound } from "lucide-react";
+import { AtSign, KeyRound, UserSearch } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import { IAuthFormState } from "./auth.types";
 import { getRandomFullName } from "@/utils/get-random-full-name.util";
 
 interface IAuth {
-    type?: 'Login' | 'Registration'
+    type: 'Login' | 'Registration'
 }
 
 export function Auth({type} : IAuth) {
@@ -30,7 +30,7 @@ export function Auth({type} : IAuth) {
             } : 
             {
                 redirect: false,
-                username: getRandomFullName(),
+                // username: getRandomFullName(),
                 ...data
             }
         )
@@ -46,7 +46,16 @@ export function Auth({type} : IAuth) {
         <div className='flex h-full'> 
             <form onSubmit={handleSubmit(onSubmit)} className='m-auto block w-96 border border-[#8d3c3c57] p-8'>
                 <h1 className="text-center mb-7">{type}</h1>
-                {/* //TODO сделать поле username для регистрации */}
+                {type === 'Registration' ? 
+                    <Field
+                        {...register('username', {
+                            required: true
+                        })}
+                        placeholder="Enter username" 
+                        type="text"
+                        Icon={UserSearch}
+                        className="mb-7"
+                    /> : null}
                 <Field 
                     {...register('email', {
                         required: true
@@ -61,14 +70,14 @@ export function Auth({type} : IAuth) {
                         required: true,
                         minLength: {
                             value: 6,
-                            message: 'Min lenght 6 symbols'
-                        }
+                            message: 'Min lenght 6 symbols',
+                        },
                     })}
                     placeholder="Enter password" 
                     type="password" 
                     Icon={KeyRound}
                     className="mb-8"
-                    error={{message: "Неверный пароль", type: 'min'}}
+                    // error={{message: "Неверный пароль", type: 'min'}}
                 />
                 
                 <div className="text-center">
@@ -78,6 +87,12 @@ export function Auth({type} : IAuth) {
                     >
                     {type}
                     </Button>
+                    {/* <Button 
+                        isLoading={isLoading} 
+                        type="submit"
+                    >
+                    {type === 'Login' ? 'or Registration': 'or Login'}
+                    </Button> */}
                 </div>
             </form>
         </div>
