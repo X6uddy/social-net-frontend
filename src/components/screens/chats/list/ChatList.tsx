@@ -29,7 +29,9 @@ export function ChatsList() {
                 : 
                 data?.length ? data.map(chat => 
                     <ChatListItem key={chat.id} chat={chat} />) : 
-                    <p className="p-4">Chats not founded</p>
+                    <ChatListItem key={1} chat={{id: '1', messages: [], participants: []}} />
+                    // <ChatListItem key={chat.id} chat={chat} />) : 
+                    // <p className="p-4">Chats not founded</p>
                 }
             </div>
         </div>
