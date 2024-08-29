@@ -4,20 +4,21 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect, type PropsWithChildren } from 'react'
 
 export default function AuthProvider({ children }: PropsWithChildren<unknown>) {
-	const { user, isLoggedIn } = useAuth()
-	const pathname = usePathname()
-	const router = useRouter()
+	const { user, isLoggedIn } = useAuth();
+	const pathname = usePathname();
+	const router = useRouter();
 
 	useEffect(() => {
 		if (isLoggedIn) {
-			window.localStorage.setItem('token', user?.jwt || '')
+			window.localStorage.setItem('token', user?.jwt || '');
+			//TODO переделать под cookie. Либа js-cookie
 		}
 	}, [user, isLoggedIn])
 
 	useEffect(() => {
-		if (pathname !== '/login' && pathname !== '/registration') {
-			const isLoggedIn = window.localStorage.getItem('token')
-			if (!isLoggedIn) return router.push('/login')
+		if (pathname !== '/login' && pathname !== '/registration') { //TODO path тоже вынести в отедльный сервис 
+			const isLoggedIn = window.localStorage.getItem('token');
+			if (!isLoggedIn) return router.push('/login');
 		}
 	}, [pathname, isLoggedIn])
 
