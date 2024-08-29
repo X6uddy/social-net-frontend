@@ -7,7 +7,7 @@ export interface IMessage {
     sender: IUser;
 }
 export interface IChat {
-	id: number
-	messages: IMessage[]
-	participants: IUser[]
+	id: string;
+	messages: IMessage[];
+	participants: IUser[];
 }
