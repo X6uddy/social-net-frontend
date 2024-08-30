@@ -30,7 +30,7 @@ export function ChatListItem({chat}: IChatListItem) {
             <div className="flex justify-between w-[100%]">
                 <div className="flex flex-col ml-3">
                     <span>{penPal?.username || 'Мама'}</span>
-                    <span className="text-sm opacity-30">{lastMessage?.text || 'быстро домой'}</span>
+                    <span className="text-sm opacity-30 w-[240px] whitespace-nowrap overflow-hidden text-ellipsis">{lastMessage?.text || 'быстро домойбыстро домойбыстро домойбыстро домойбыстро домойбыстро домой'}</span>
                 </div>
                 <span className="text-sm opacity-30">{lastMessage?.createdAt || '12:30'}</span>
             </div>
