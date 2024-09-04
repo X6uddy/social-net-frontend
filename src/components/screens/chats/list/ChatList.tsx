@@ -11,8 +11,9 @@ import { Loader } from "@/components/ui/loader/Loader";
 export function ChatsList() {
     const {data, isLoading} = useQuery({
         queryKey: ['chats'],
-        queryFn: () => $fetch.get<IChat[]>('/chats', true)
+        queryFn: () => $fetch.get<IChat[]>('/users/me?populate=*', true)
     })
+    console.log(data)
     return (
         <div>
             <div className=" border-b border-stone-600 border-opacity-50 p-5">
