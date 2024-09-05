@@ -10,7 +10,7 @@ export default function ChatsPage() {
         gridTemplateColumns: ".8fr 3fr",
       }}
     >
-      <div className="flex flex-col border-r border-stone-600 border-opacity-50 divide-y divide-stone-600 divide-opacity-50">
+      <div className="flex flex-col border-r border-stone-600 border-opacity-50 divide-y divide-stone-600 divide-opacity-50 h-screen">
         <CurrentUser />
         <ChatsList />
       </div>
