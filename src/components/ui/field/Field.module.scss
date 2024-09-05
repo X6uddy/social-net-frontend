@@ -2,7 +2,7 @@
     @apply flex items-center relative;
     input {
         @apply border-none outline-none bg-transparent placeholder:text-[#5c5b5a]  
-        placeholder:transition-colors placeholder:duration-300 placeholder:ease-linear;
+        placeholder:transition-colors placeholder:duration-300 placeholder:ease-linear placeholder:text-white text-white;
     }
 
     &:focus-within {
@@ -10,7 +10,7 @@
             @apply text-white;
         }
         input {
-            @apply placeholder:text-white;
+            @apply placeholder:text-white text-white;
         }
     }
 }

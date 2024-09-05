@@ -10,3 +10,8 @@ body {
 h1 {
   @apply text-3xl font-bold;
 }
+
+input:-webkit-autofill {
+  transition-delay: 9999s;
+  transition-property: background-color;
+}
