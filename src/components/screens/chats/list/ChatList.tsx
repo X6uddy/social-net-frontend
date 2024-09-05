@@ -11,7 +11,7 @@ import { Loader } from "@/components/ui/loader/Loader";
 export function ChatsList() {
     const {data, isLoading} = useQuery({
         queryKey: ['chats'],
-        queryFn: () => $fetch.get<IChat[]>('/users/me?populate=*', true)
+        queryFn: () => $fetch.get<{ data: IChat[] }>('/chats/1?populate=*', true)
     })
     console.log(data)
     return (
