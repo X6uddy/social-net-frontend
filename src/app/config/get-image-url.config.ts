@@ -1,0 +1,1 @@
+export const getImageUrl = (url: string) => url ? process.env.BACK_URL : null
