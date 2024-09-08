@@ -7,6 +7,7 @@ import no_profile from '/public/profile.png';
 import { IChat } from "@/types/chat.types";
 import { useAuth } from "@/hooks/useAuth";
 import { getImageUrl } from "@/app/config/get-image-url.config";
+import Link from "next/link";
 
 interface IChatListItem {
     chat: IChat;
@@ -19,7 +20,7 @@ export function ChatListItem({chat}: IChatListItem) {
     const lastMessage = chat?.messages.at(-1);
 
     return (
-        <div className="p-5 border-b border-stone-600 border-opacity-50 text-sm flex items-center">
+        <Link href={`/chat/${chat.id}`} className="p-5 border-b border-stone-600 border-opacity-50 text-sm flex items-center">
             <div>
                 <Image 
                     src={getImageUrl(penPal?.avatar?.url) || no_profile} 
@@ -38,6 +39,6 @@ export function ChatListItem({chat}: IChatListItem) {
                 </div>
                 <span className="text-sm opacity-30">{dayjs(lastMessage?.createdAt).format('HH:mm')}</span>
             </div>
-        </div>
+        </Link>
     )
 }
