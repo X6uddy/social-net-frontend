@@ -20,7 +20,10 @@ export function ChatListItem({chat}: IChatListItem) {
     const lastMessage = chat?.messages.at(-1);
 
     return (
-        <Link href={`/chat/${chat.id}`} className="p-5 border-b border-stone-600 border-opacity-50 text-sm flex items-center">
+        <Link 
+            href={`/chat/${chat.id}`} 
+            className="p-5 border-b border-stone-600 border-opacity-50 text-sm flex items-center animation-slide-fade"
+        >
             <div>
                 <Image 
                     src={getImageUrl(penPal?.avatar?.url) || no_profile} 
